@@ -1,0 +1,34 @@
+import tkinter as tk
+
+class AnimatedGreeting(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Анимированное приветствие")
+        self.label = tk.Label(self, text="Привет, пользователь!", font=("Arial", 30))
+        self.label.pack()
+        self.width = 400
+        self.height = 200
+        self.geometry("{}x{}".format(self.width, self.height))
+        self.dx = 10
+        self.dy = 10
+        self.update_greeting()
+
+    def update_size(self):
+        if self.width > 1000 and self.height > 700:
+            return
+        self.width += self.dx
+        self.height += self.dy
+        self.geometry("{}x{}".format(self.width, self.height))
+        self.after(10, self.update_size)
+
+    def update_greeting(self):
+        if self.width > 1000 and self.height > 700:
+            return
+        self.label.config(text="Привет, \nпользователь!", font=("Arial", int(self.width/10)))
+        self.after(100, self.update_greeting)
+
+if __name__ == '__main__':
+    app = AnimatedGreeting()
+    app.update_size()
+    app.update_greeting()
+    app.mainloop()
